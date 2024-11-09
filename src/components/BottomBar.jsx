@@ -78,7 +78,7 @@ function BottomBar({
                     bottom: 0,
                     left: 0,
                     right: 0,
-                    backgroundColor: "#333",
+                    backgroundColor: "#212121",
                     color: "#fff",
                     display: "flex",
                     alignItems: "center",
