@@ -112,7 +112,13 @@ function Home() {
     return (
         <Box sx={{ display: "flex", height: "100vh", flexDirection: "column" }}>
             <TopSearchBar />
-            <Box sx={{ display: "flex", flexGrow: 1 }}>
+            <Box
+                sx={{
+                    display: "flex",
+                    flexGrow: 1,
+                    justifyContent: "space-around",
+                }}
+            >
                 <SideBar />
                 <Box
                     sx={{
