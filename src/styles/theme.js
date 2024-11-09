@@ -4,8 +4,8 @@ import { orange, grey, red, blue } from "@mui/material/colors";
 const theme = createTheme({
     palette: {
         primary: {
-            main: orange[800],
-            light: orange[400],
+            main: grey[900],
+            light: grey[500],
         },
         separator: {
             main: orange[100],
@@ -24,6 +24,12 @@ const theme = createTheme({
         h1: {
             fontSize: "2.5rem", // h1의 폰트 크기
             fontWeight: 600, // h1의 폰트 두께
+        },
+        h6: {
+            fontSize: "1.25rem", // h6의 폰트 크기 (기본값은 1.25rem)
+            fontWeight: 500, // h6의 폰트 두께 (기본값은 500)
+            lineHeight: 1.5, // 줄 높이
+            color: grey[800], // 텍스트 색상 (원하는 색상으로 변경 가능)
         },
         body1: {
             fontSize: "1rem", // body1의 폰트 크기
