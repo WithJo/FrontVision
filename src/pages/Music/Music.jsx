@@ -1,16 +1,38 @@
-import { useLocation } from "react-router-dom";
+import React from "react";
+import { Box, Typography, Button } from "@mui/material";
 
-function Music() {
-    const location = useLocation();
-    const params = new URLSearchParams(location.search);
-    const id = params.get("id"); // props 또는 URL에서 id 가져오기
+function Music({ videoRef, currentSong, isVideoVisible, onMinimizeVideo }) {
+    if (!currentSong) return null; // 선택된 곡이 없을 경우 아무것도 렌더링하지 않음
 
     return (
-        <div>
-            <h2>확장된 콘텐츠</h2>
-            <p>ID: {id}</p>
-            {/* ID에 맞는 콘텐츠를 렌더링 */}
-        </div>
+        <Box sx={{ display: "flex", gap: 2, width: "100%" }}>
+            {/* 비디오 영역 */}
+            <Box
+                sx={{
+                    width: "60%",
+                    display: isVideoVisible ? "block" : "none",
+                }}
+            >
+                <video
+                    ref={videoRef}
+                    src={currentSong.musicVideoUrl}
+                    width="100%"
+                    onPlay={() => videoRef.current && videoRef.current.play()}
+                    onPause={() => videoRef.current && videoRef.current.pause()}
+                />
+                <Button onClick={onMinimizeVideo}>내리기</Button>
+            </Box>
+
+            {/* 가사 표시 영역 */}
+            <Box sx={{ width: "40%", p: 2 }}>
+                <Typography variant="h5" sx={{ mb: 2 }}>
+                    {currentSong.title}
+                </Typography>
+                <Typography variant="body1" sx={{ whiteSpace: "pre-line" }}>
+                    {currentSong.lyrics}
+                </Typography>
+            </Box>
+        </Box>
     );
 }
 
