@@ -82,11 +82,15 @@ function BottomBar({
                     color: "#fff",
                     display: "flex",
                     alignItems: "center",
-                    justifyContent: "space-between",
+                    justifyContent: "flex-start",
                     p: 1,
                 }}
             >
-                <IconButton onClick={togglePlayPause} color="inherit">
+                <IconButton
+                    onClick={togglePlayPause}
+                    color="inherit"
+                    sx={{ marginLeft: "20px" }}
+                >
                     {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
                 </IconButton>
 
@@ -95,27 +99,54 @@ function BottomBar({
                     min={0}
                     max={duration}
                     onChange={handleSeekChange}
-                    sx={{ width: "30%" }}
+                    sx={{
+                        marginLeft: "20px",
+                        width: "30%",
+                        color: "#ffffff", // 전체 슬라이더 색상 변경
+                        "& .MuiSlider-thumb": {
+                            color: "#ffffff", // 슬라이더의 thumb 색상
+                        },
+                        "& .MuiSlider-track": {
+                            color: "#ffffff", // 슬라이더의 track 색상
+                        },
+                        "& .MuiSlider-rail": {
+                            color: "#ffffff80", // 슬라이더의 진행되지 않은 부분
+                        },
+                    }}
                 />
-                <Typography variant="body2">
+                <Typography variant="body2" sx={{ marginLeft: "20px" }}>
                     {Math.floor(currentTime / 60)}:
                     {("0" + Math.floor(currentTime % 60)).slice(-2)} /{" "}
                     {Math.floor(duration / 60)}:
                     {("0" + Math.floor(duration % 60)).slice(-2)}
                 </Typography>
 
-                <VolumeUpIcon />
+                <VolumeUpIcon sx={{ marginLeft: "40rem" }} />
                 <Slider
-                    value={volume}
+                    value={currentTime}
                     min={0}
-                    max={100}
-                    onChange={handleVolumeChange}
-                    sx={{ width: "10%" }}
+                    max={duration}
+                    onChange={handleSeekChange}
+                    sx={{
+                        marginLeft: "20px",
+                        width: "10%",
+                        color: "#ffffff", // 전체 슬라이더 색상 변경
+                        "& .MuiSlider-thumb": {
+                            color: "#ffffff", // 슬라이더의 thumb 색상
+                        },
+                        "& .MuiSlider-track": {
+                            color: "#ffffff", // 슬라이더의 track 색상
+                        },
+                        "& .MuiSlider-rail": {
+                            color: "#ffffff80", // 슬라이더의 진행되지 않은 부분
+                        },
+                    }}
                 />
 
                 <IconButton
                     onClick={() => setIsVideoVisible(!isVideoVisible)}
                     color="inherit"
+                    sx={{ marginLeft: "20px" }}
                 >
                     {isVideoVisible ? (
                         <KeyboardArrowDownIcon />
