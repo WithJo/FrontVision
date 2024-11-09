@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { Box, Typography } from "@mui/material";
 import TopSearchBar from "../../components/TopSearchBar";
 import SideBar from "../../components/SideBar";
@@ -7,20 +7,76 @@ import BottomBar from "../../components/BottomBar";
 const sampleSongs = [
     {
         id: 1,
-        title: "노래 1",
-        lyrics: "이 노래의 가사입니다. 첫 번째 곡의 가사가 여기에 나옵니다.",
+        title: "Espresso", // 노래 제목 추가
+        lyrics: `Now he's thinkin' 'bout me every night, oh
+Is it that sweet? I guess so
+Say you can't sleep, baby, I know
+That's that me espresso
+Move it up, down, left, right, oh
+Switch it up like Nintendo
+Say you can't sleep, baby, I know
+That's that me espresso
+I can't relate to desperation
+My give-a-fucks are on vacation
+And I got this one boy and he won't stop calling
+When they act this way, I know I got 'em
+Too bad your ex don't do it for ya
+Walked in and dream-came-trued it for ya
+Soft skin and I perfumed it for ya
+(Yes) I know I Mountain Dew it for ya
+(Yes) that morning coffee, brewed it for ya
+(Yes) one touch and I brand-newed it for ya
+Now he's thinkin' 'bout me every night, oh
+Is it that sweet? I guess so
+Say you can't sleep, baby, I know
+That's that me espresso
+Move it up, down, left, right, oh
+Switch it up like Nintendo
+Say you can't sleep, baby, I know
+That's that me espresso
+Holy shit
+Is it that sweet? I guess so
+I'm working late, 'cause I'm a singer
+Oh, he looks so cute wrapped around my finger
+My twisted humor make him laugh so often
+My honey bee, come and get this pollen
+Too bad your ex don't do it for ya
+Walked in and dream-came-trued it for ya
+Soft skin and I perfumed it for ya
+(Yes) I know I Mountain Dew it for ya
+(Yes) that morning coffee, brewed it for ya
+(Yes) one touch and I brand-newed it for ya (stupid)
+Now he's thinkin' 'bout me every night, oh
+Is it that sweet? I guess so
+Say you can't sleep, baby, I know
+That's that me espresso
+Move it up down, left, right, oh
+Switch it up like Nintendo
+Say you can't sleep, baby, I know
+That's that me espresso
+Thinkin' 'bout me every night, oh
+Is it that sweet? I guess so
+Say you can't sleep, baby, I know
+That's that me espresso
+Move it up down, left, right, oh
+Switch it up like Nintendo
+Say you can't sleep, baby, I know
+That's that me espresso
+Is it that sweet? I guess so
+That's that me espresso`,
         musicVideoUrl: "/videos/sample.mp4",
     },
+    // 다른 노래 샘플
     {
         id: 2,
         title: "노래 2",
-        lyrics: "이 노래의 두 번째 가사입니다. 두 번째 곡의 가사가 여기에 나옵니다.",
+        lyrics: "이 노래의 두 번째 가사입니다.",
         musicVideoUrl: "/videos/sample2.mp4",
     },
     {
         id: 3,
         title: "노래 3",
-        lyrics: "이 노래의 세 번째 가사입니다. 세 번째 곡의 가사가 여기에 나옵니다.",
+        lyrics: "이 노래의 세 번째 가사입니다.",
         musicVideoUrl: "/videos/sample.mp4",
     },
 ];
@@ -58,12 +114,21 @@ function Home() {
             <TopSearchBar />
             <Box sx={{ display: "flex", flexGrow: 1 }}>
                 <SideBar />
-                <Box sx={{ flexGrow: 1, p: 2, display: "flex", gap: 2 }}>
+                <Box
+                    sx={{
+                        flexGrow: 1,
+                        p: 2,
+                        display: "flex",
+                        gap: 2,
+                        height: "calc(100vh - 120px)",
+                    }}
+                >
                     <Box
                         sx={{
                             width: "60%",
                             display: isVideoVisible ? "flex" : "none",
                             flexDirection: "column",
+                            justifyContent: "center",
                             gap: 1,
                         }}
                     >
@@ -86,18 +151,35 @@ function Home() {
                         }}
                     >
                         {currentSong && isVideoVisible ? (
-                            <Box sx={{ p: 2 }}>
+                            // 현재 재생 중인 곡의 가사 표시
+                            <Box
+                                sx={{
+                                    p: 2,
+                                    height: "100%",
+                                    display: "flex",
+                                    flexDirection: "column",
+                                }}
+                            >
                                 <Typography variant="h5" sx={{ mb: 2 }}>
                                     {currentSong.title}
                                 </Typography>
-                                <Typography
-                                    variant="body1"
-                                    sx={{ whiteSpace: "pre-line" }}
+                                {/* 가사에만 스크롤을 추가 */}
+                                <Box
+                                    sx={{
+                                        flexGrow: 1, // 남은 공간을 모두 차지하도록 설정
+                                        overflowY: "auto", // 가사 부분에만 스크롤
+                                    }}
                                 >
-                                    {currentSong.lyrics}
-                                </Typography>
+                                    <Typography
+                                        variant="body1"
+                                        sx={{ whiteSpace: "pre-line" }}
+                                    >
+                                        {currentSong.lyrics}
+                                    </Typography>
+                                </Box>
                             </Box>
                         ) : (
+                            // 최신 음악 리스트
                             <Box>
                                 <Typography variant="h4" sx={{ mb: 2 }}>
                                     최신 음악
