@@ -123,10 +123,10 @@ function BottomBar({
 
                 <VolumeUpIcon sx={{ marginLeft: "40rem" }} />
                 <Slider
-                    value={currentTime}
+                    value={volume}
                     min={0}
-                    max={duration}
-                    onChange={handleSeekChange}
+                    max={100}
+                    onChange={handleVolumeChange}
                     sx={{
                         marginLeft: "20px",
                         width: "10%",

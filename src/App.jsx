@@ -8,7 +8,7 @@ import GlobalStyle from "./styles/GlobalStyle";
 
 // Lazy loading components
 const Home = lazy(() => import("./pages/Home/Home"));
-const Music = lazy(() => import("./pages/Music/Music"));
+
 const NotFound = lazy(() => import("./pages/Error/NotFound"));
 const Loading = lazy(() => import("./components/Loading"));
 
@@ -20,7 +20,6 @@ function App() {
                 <Suspense fallback={<Loading />}>
                     <Routes>
                         <Route path="/" element={<Home />} />
-                        <Route path="/Music" element={<Music />} />
 
                         <Route path="*" element={<NotFound />} />
                     </Routes>
