@@ -1,8 +1,8 @@
 import { baseURL } from "./api";
 
-export async function getTransaction(memberId) {
+export async function getSong() {
     const url = new URL(`${baseURL}/point/log`);
-    url.searchParams.append("memberId", memberId);
+
     const response = await fetch(url, {
         method: "GET",
         headers: {

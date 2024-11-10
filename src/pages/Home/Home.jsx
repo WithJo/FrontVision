@@ -1,8 +1,9 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Box, Typography } from "@mui/material";
 import TopSearchBar from "../../components/TopSearchBar";
 import SideBar from "../../components/SideBar";
 import BottomBar from "../../components/BottomBar";
+import { getSong } from "../../apis/getSong";
 
 const sampleSongs = [
     {
@@ -85,7 +86,22 @@ function Home() {
     const [currentSong, setCurrentSong] = useState(null);
     const [isVideoVisible, setIsVideoVisible] = useState(false);
     const [isPlaying, setIsPlaying] = useState(true); // 재생 상태 관리
+    const [songData, setSongData] = useState([]);
     const videoRef = useRef(null);
+
+    useEffect(() => {
+        const fetchSong = async () => {
+            try {
+                getSong;
+                const data = await getSong();
+                setSongData(data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        fetchSong();
+    }, []);
 
     const handlePlay = (song) => {
         setCurrentSong(song);
@@ -191,7 +207,7 @@ function Home() {
                                     최신 음악
                                 </Typography>
                                 <Box sx={{ display: "flex", gap: 2 }}>
-                                    {sampleSongs.map((song) => (
+                                    {songData.map((song) => (
                                         <Box
                                             key={song.id}
                                             sx={{ cursor: "pointer" }}
