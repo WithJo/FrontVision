@@ -7,6 +7,7 @@ function CurrentSongLyrics({ currentSong }) {
             <Typography variant="h5" sx={{ mb: 2 }}>
                 {currentSong.title}
             </Typography>
+            
             <Box sx={{ flexGrow: 1, overflowY: 'auto' }}>
                 <Typography variant="body1" sx={{ whiteSpace: 'pre-line' }}>
                     {currentSong.lyrics}
