@@ -121,6 +121,11 @@ function BottomBar({
                     {("0" + Math.floor(duration % 60)).slice(-2)}
                 </Typography>
 
+                {/* 현재 선택된 노래 제목 표시 */}
+                <Typography variant="body1" sx={{ paddingLeft: 2 }}>
+                    {currentSong.title + " - " +currentSong.artist}
+                </Typography>
+                
                 <VolumeUpIcon sx={{ marginLeft: "40rem" }} />
                 <Slider
                     value={volume}
