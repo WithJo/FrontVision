@@ -13,7 +13,7 @@ function SongList({ songs, popsongs, onSongSelect }) {
     <Box>
       {/* 최신 음악 섹션 */}
       <Typography variant="h3" sx={{ mb: 2, color: "black" }}>
-        Latest
+        최신 음악
       </Typography>
       <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap", padding: "10px" }}>
         {songs.map((song) => (
@@ -105,7 +105,7 @@ function SongList({ songs, popsongs, onSongSelect }) {
 
       {/* 힙합 음악 추천 섹션 */}
       <Typography variant="h3" sx={{ mb: 2, color: "black" }}>
-        Korean HipHop
+        한국 힙합
       </Typography>
       <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap", padding: "10px" }}>
         {popsongs.map((song) => (

@@ -94,11 +94,16 @@ function Home() {
 
   return (
     <Box sx={{ display: "flex", height: "100vh", flexDirection: "column" }}>
-      <TopSearchBar />
+      <Box sx={{ position: "sticky", top: 0, zIndex: 1 }}>
+        <TopSearchBar />
+      </Box>
       <Box
         sx={{ display: "flex", flexGrow: 1, justifyContent: "space-around" }}
       >
-        <SideBar />
+        <Box sx={{ position: "sticky", top: 0, zIndex: 1 }}>
+          <SideBar />
+        </Box>
+
         <Box
           sx={{
             flexGrow: 1,
@@ -127,9 +132,7 @@ function Home() {
             />
           </Box>
 
-          <Box
-            sx={{ width: isVideoVisible ? "40%" : "100%", overflowY: "auto" }}
-          >
+          <Box sx={{ width: isVideoVisible ? "40%" : "100%", overflowY: "" }}>
             {currentSong && isVideoVisible ? (
               <CurrentSongLyrics currentSong={currentSong} />
             ) : (
@@ -142,6 +145,7 @@ function Home() {
           </Box>
         </Box>
       </Box>
+      <Box sx={{ position: "sticky", top: 0, zIndex: 2 }}>
 
       <BottomBar
         videoRef={videoRef}
@@ -152,6 +156,8 @@ function Home() {
         setIsPlaying={setIsPlaying}
         togglePlayPause={togglePlayPause}
       />
+            </Box>
+
     </Box>
   );
 }
