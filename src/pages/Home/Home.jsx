@@ -93,7 +93,7 @@ function Home() {
   };
 
   return (
-    <Box sx={{ display: "flex", height: "100vh", flexDirection: "column" }}>
+    <Box sx={{ display: "flex",  flexDirection: "column" }}>
       <Box sx={{ position: "sticky", top: 0, zIndex: 1 }}>
         <TopSearchBar />
       </Box>
@@ -110,7 +110,8 @@ function Home() {
             p: 2,
             display: "flex",
             gap: 2,
-            height: "calc(100vh - 120px)",
+            minheight: "100vh",
+            backgroundColor: "white"
           }}
         >
           <Box
