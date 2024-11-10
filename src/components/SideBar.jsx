@@ -14,7 +14,7 @@ function SideBar() {
             PaperProps={{
                 sx: {
                     width: `${drawerWidth}px`,
-                    height: "calc(100vh - 128px)", // 전체 높이에서 상단/하단 여백 제외
+                    height: "calc(100vh)", // 전체 높이에서 상단/하단 여백 제외
                     marginTop: "64px", // 상단 여백 조정
                     backgroundColor: "#212121",
                 },
