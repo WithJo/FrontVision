@@ -78,87 +78,93 @@ function BottomBar({
                     bottom: 0,
                     left: 0,
                     right: 0,
-                    backgroundColor: "#212121",
+                    backgroundColor: "#282828",
                     color: "#fff",
                     display: "flex",
                     alignItems: "center",
-                    justifyContent: "flex-start",
-                    p: 1,
+                    justifyContent: "space-between",
+                    p: 1.5,
+                    px: 3,
+                    boxShadow: "0px -2px 5px rgba(0,0,0,0.5)",
                 }}
             >
-                <IconButton
-                    onClick={togglePlayPause}
-                    color="inherit"
-                    sx={{ marginLeft: "20px" }}
-                >
-                    {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
-                </IconButton>
+                {/* 왼쪽 플레이 버튼 및 시간 */}
+                <Box sx={{ display: "flex", alignItems: "center", flex: 1 }}>
+                    <IconButton
+                        onClick={togglePlayPause}
+                        color="inherit"
+                        sx={{ marginRight: 2 }}
+                    >
+                        {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
+                    </IconButton>
 
-                <Slider
-                    value={currentTime}
-                    min={0}
-                    max={duration}
-                    onChange={handleSeekChange}
-                    sx={{
-                        marginLeft: "20px",
-                        width: "30%",
-                        color: "#ffffff", // 전체 슬라이더 색상 변경
-                        "& .MuiSlider-thumb": {
-                            color: "#ffffff", // 슬라이더의 thumb 색상
-                        },
-                        "& .MuiSlider-track": {
-                            color: "#ffffff", // 슬라이더의 track 색상
-                        },
-                        "& .MuiSlider-rail": {
-                            color: "#ffffff80", // 슬라이더의 진행되지 않은 부분
-                        },
-                    }}
-                />
-                <Typography variant="body2" sx={{ marginLeft: "20px" }}>
-                    {Math.floor(currentTime / 60)}:
-                    {("0" + Math.floor(currentTime % 60)).slice(-2)} /{" "}
-                    {Math.floor(duration / 60)}:
-                    {("0" + Math.floor(duration % 60)).slice(-2)}
+                    <Slider
+                        value={currentTime}
+                        min={0}
+                        max={duration}
+                        onChange={handleSeekChange}
+                        sx={{
+                            marginLeft: 1,
+                            marginRight: 2,
+                            width: "60%",
+                            color: "#1db954",
+                            "& .MuiSlider-thumb": { color: "#fff" },
+                            "& .MuiSlider-track": { color: "#fff" },
+                            "& .MuiSlider-rail": { color: "#ffffff80" },
+                        }}
+                    />
+                    <Typography variant="body2">
+                        {Math.floor(currentTime / 60)}:
+                        {("0" + Math.floor(currentTime % 60)).slice(-2)} /{" "}
+                        {Math.floor(duration / 60)}:
+                        {("0" + Math.floor(duration % 60)).slice(-2)}
+                    </Typography>
+                </Box>
+
+                {/* 중앙 노래 제목 */}
+                <Typography
+                    variant="body1"
+                    sx={{ flex: 1, textAlign: "center", fontWeight: "bold" }}
+                >
+                    {currentSong.title} - {currentSong.artist}
                 </Typography>
 
-                {/* 현재 선택된 노래 제목 표시 */}
-                <Typography variant="body1" sx={{ paddingLeft: 2 }}>
-                    {currentSong.title + " - " +currentSong.artist}
-                </Typography>
-                
-                <VolumeUpIcon sx={{ marginLeft: "40rem" }} />
-                <Slider
-                    value={volume}
-                    min={0}
-                    max={100}
-                    onChange={handleVolumeChange}
+                {/* 오른쪽 볼륨 조절 및 화살표 */}
+                <Box
                     sx={{
-                        marginLeft: "20px",
-                        width: "10%",
-                        color: "#ffffff", // 전체 슬라이더 색상 변경
-                        "& .MuiSlider-thumb": {
-                            color: "#ffffff", // 슬라이더의 thumb 색상
-                        },
-                        "& .MuiSlider-track": {
-                            color: "#ffffff", // 슬라이더의 track 색상
-                        },
-                        "& .MuiSlider-rail": {
-                            color: "#ffffff80", // 슬라이더의 진행되지 않은 부분
-                        },
+                        display: "flex",
+                        alignItems: "center",
+                        flex: 1,
+                        justifyContent: "flex-end",
                     }}
-                />
-
-                <IconButton
-                    onClick={() => setIsVideoVisible(!isVideoVisible)}
-                    color="inherit"
-                    sx={{ marginLeft: "20px" }}
                 >
-                    {isVideoVisible ? (
-                        <KeyboardArrowDownIcon />
-                    ) : (
-                        <KeyboardArrowUpIcon />
-                    )}
-                </IconButton>
+                    <VolumeUpIcon />
+                    <Slider
+                        value={volume}
+                        min={0}
+                        max={100}
+                        onChange={handleVolumeChange}
+                        sx={{
+                            marginLeft: 1,
+                            width: "30%",
+                            color: "#1db954",
+                            "& .MuiSlider-thumb": { color: "#fff" },
+                            "& .MuiSlider-track": { color: "#fff" },
+                            "& .MuiSlider-rail": { color: "#ffffff80" },
+                        }}
+                    />
+                    <IconButton
+                        onClick={() => setIsVideoVisible(!isVideoVisible)}
+                        color="inherit"
+                        sx={{ marginLeft: 2 }}
+                    >
+                        {isVideoVisible ? (
+                            <KeyboardArrowDownIcon />
+                        ) : (
+                            <KeyboardArrowUpIcon />
+                        )}
+                    </IconButton>
+                </Box>
             </Box>
         )
     );
