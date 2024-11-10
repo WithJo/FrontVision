@@ -12,26 +12,55 @@ const sampleSongs = [
   {
     id: 1,
     title: "Power", // 노래 제목 추가
+    artist: "G-Dragon",
     lyrics: "이 노래의 첫 번째 가사입니다.",
     musicVideoUrl: "/videos/sample1.mp4",
-    thumbnailUrl: "/thumbnails/sample1.jpg"
+    thumbnailUrl: "/thumbnails/sample1.jpg",
   },
   // 다른 노래 샘플
   {
     id: 2,
     title: "BBI BBI",
+    artist: "IU",
     lyrics: "이 노래의 두 번째 가사입니다.",
     musicVideoUrl: "/videos/sample2.mp4",
-    thumbnailUrl: "/thumbnails/sample2.jpg"
+    thumbnailUrl: "/thumbnails/sample2.jpg",
+  },
+  {
+    id: 3,
+    title: "Armageddon",
+    artist: "Aespa",
+    lyrics: "이 노래의 세 번째 가사입니다.",
+    musicVideoUrl: "/videos/sample3.mp4",
+    thumbnailUrl: "/thumbnails/sample3.jpg",
+  },
+];
 
+const popSongs = [
+  {
+    id: 1,
+    title: "Power", // 노래 제목 추가
+    artist: "G-Dragon",
+    lyrics: "이 노래의 첫 번째 가사입니다.",
+    musicVideoUrl: "/videos/sample1.mp4",
+    thumbnailUrl: "/thumbnails/sample1.jpg",
+  },
+  // 다른 노래 샘플
+  {
+    id: 2,
+    title: "BBI BBI",
+    artist: "IU",
+    lyrics: "이 노래의 두 번째 가사입니다.",
+    musicVideoUrl: "/videos/sample2.mp4",
+    thumbnailUrl: "/thumbnails/sample2.jpg",
   },
   {
     id: 3,
     title: "Armageddon",
     lyrics: "이 노래의 세 번째 가사입니다.",
+    artist: "Aespa",
     musicVideoUrl: "/videos/sample3.mp4",
-    thumbnailUrl: "/thumbnails/sample3.jpg"
-
+    thumbnailUrl: "/thumbnails/sample3.jpg",
   },
 ];
 
@@ -104,7 +133,11 @@ function Home() {
             {currentSong && isVideoVisible ? (
               <CurrentSongLyrics currentSong={currentSong} />
             ) : (
-              <SongList songs={sampleSongs} onSongSelect={handlePlay} />
+              <SongList
+                songs={sampleSongs}
+                popsongs={popSongs}
+                onSongSelect={handlePlay}
+              />
             )}
           </Box>
         </Box>
