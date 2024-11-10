@@ -11,22 +11,27 @@ import SongList from "./SongList";
 const sampleSongs = [
   {
     id: 1,
-    title: "Espresso", // 노래 제목 추가
+    title: "Power", // 노래 제목 추가
     lyrics: "이 노래의 첫 번째 가사입니다.",
-    musicVideoUrl: "/videos/sample.mp4",
+    musicVideoUrl: "/videos/sample1.mp4",
+    thumbnailUrl: "/thumbnails/sample1.jpg"
   },
   // 다른 노래 샘플
   {
     id: 2,
-    title: "노래 2",
+    title: "BBI BBI",
     lyrics: "이 노래의 두 번째 가사입니다.",
     musicVideoUrl: "/videos/sample2.mp4",
+    thumbnailUrl: "/thumbnails/sample2.jpg"
+
   },
   {
     id: 3,
-    title: "노래 3",
+    title: "Armageddon",
     lyrics: "이 노래의 세 번째 가사입니다.",
-    musicVideoUrl: "/videos/sample.mp4",
+    musicVideoUrl: "/videos/sample3.mp4",
+    thumbnailUrl: "/thumbnails/sample3.jpg"
+
   },
 ];
 
