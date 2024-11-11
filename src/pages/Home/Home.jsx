@@ -268,12 +268,16 @@ function Home() {
     setCurrentSong(song);
     setIsVideoVisible(true);
     setIsPlaying(true);
+    
     setTimeout(() => {
-      if (videoRef.current) {
-        videoRef.current.play();
-      }
+        if (videoRef.current) {
+            videoRef.current.onloadedmetadata = () => {
+                setDuration(videoRef.current.duration);
+            };
+            videoRef.current.play();
+        }
     }, 100);
-  };
+};
 
   const togglePlayPause = () => {
     if (videoRef.current) {
@@ -305,52 +309,144 @@ function Home() {
           <SideBar />
         </Box>
 
-        <Box
-          sx={{
-            flexGrow: 1,
-            p: 2,
+{/* Content Area */}
+<Box
+    sx={{
+        flexGrow: 1,
+        p: 2,
+        display: "flex",
+        gap: 2,
+        backgroundColor: "#f5f5f5",
+        position: "relative",  // 추가
+    }}
+>
+    {/* 항상 보이는 음악 리스트 */}
+    <Box
+        sx={{
+            width: "100%",
+            overflowY: "auto",
+            maxHeight: "calc(100vh - 100px)",
+        }}
+    >
+        <SongList
+            songs={sampleSongs}
+            popsongs={popSongs}
+            onSongSelect={handlePlay}
+        />
+    </Box>
+
+    <Box
+        sx={{
+            position: "absolute",
+            width: "100%",
+            height: "100%",
+            left: 0,
+            top: 0,
             display: "flex",
             gap: 2,
-            minHeight: "100vh",
+            p: 2,
+            transform: isVideoVisible ? "translateY(0)" : "translateY(100%)",
+            transition: "transform 0.3s ease-in-out",
             backgroundColor: "#f5f5f5",
-          }}
+            zIndex: 1,
+        }}
+    >
+        <Box
+            sx={{
+                width: "60%",
+                display: isVideoVisible ? "flex" : "none",  // 원래 코드의 조건 유지
+                flexDirection: "column",
+                gap: 1,
+            }}
         >
-          <Box
-            sx={{
-              width: "60%",
-              display: isVideoVisible ? "flex" : "none",
-              flexDirection: "column",
-              gap: 1,
-            }}
-          >
             <video
-              ref={videoRef}
-              src={currentSong ? currentSong.musicVideoUrl : ""}
-              width="100%"
-              style={{ display: isVideoVisible ? "block" : "none" }}
-              onPlay={() => setIsPlaying(true)}
-              onPause={() => setIsPlaying(false)}
+                ref={videoRef}
+                src={currentSong ? currentSong.musicVideoUrl : ""}
+                width="100%"
+                style={{ display: isVideoVisible ? "block" : "none" }}  // 원래 코드의 style 유지
+                onPlay={() => setIsPlaying(true)}
+                onPause={() => setIsPlaying(false)}
             />
-          </Box>
-
-          <Box
-            sx={{
-              width: isVideoVisible ? "40%" : "100%",
-              overflowY: "auto", // 가사 컨테이너에만 스크롤 적용
-              maxHeight: "calc(100vh - 100px)", // 필요에 따라 조정 (뷰포트 높이에 맞춰 조정)
-            }}
-          >
-            {currentSong && isVideoVisible ? (
-              <CurrentSongLyrics currentSong={currentSong} />
-            ) : (
-              <SongList
-                songs={sampleSongs}
-                popsongs={popSongs}
-                onSongSelect={handlePlay}
-              />
-            )}
-          </Box>
         </Box>
+
+        <Box
+            sx={{
+                width: isVideoVisible ? "40%" : "100%",  // 원래 코드의 조건 유지
+                overflowY: "auto",
+                maxHeight: "calc(100vh - 100px)",
+                backgroundColor: '#fff',
+                borderRadius: 2,
+                boxShadow: '0 0 10px rgba(0,0,0,0.1)',
+                p: 2,
+            }}
+        >
+            {currentSong && isVideoVisible ? (
+                <CurrentSongLyrics currentSong={currentSong} />
+            ) : (
+                <SongList
+                    songs={sampleSongs}
+                    popsongs={popSongs}
+                    onSongSelect={handlePlay}
+                />
+            )}
+        </Box>
+    </Box>
+
+
+    {/* 슬라이딩되는 비디오/가사 컨테이너 */}
+    {currentSong && (
+        <Box
+            sx={{
+                position: "absolute",
+                left: 0,
+                right: 0,
+                bottom: 0,
+                height: "100%",
+                backgroundColor: "#f5f5f5",
+                display: "flex",
+                gap: 2,
+                transform: isVideoVisible ? "translateY(0)" : "translateY(100%)",
+                transition: "transform 0.3s ease-in-out",
+                zIndex: 1,
+                p: 3,  // 전체 컨테이너 패딩
+            }}
+        >
+            <Box 
+                sx={{ 
+                    width: "60%", 
+                    display: "flex", 
+                    flexDirection: "column", 
+                    gap: 1,
+
+                }}
+            >
+                <video
+                    ref={videoRef}
+                    src={currentSong.musicVideoUrl}
+                    width="100%"
+                    onPlay={() => setIsPlaying(true)}
+                    onPause={() => setIsPlaying(false)}
+                    style={{
+                        borderRadius: 8,  // 비디오에도 둥근 모서리 적용
+                    }}
+                />
+            </Box>
+            <Box 
+                sx={{ 
+                    width: "40%", 
+                    overflowY: "auto",
+                    p: 2,  // 가사 컨테이너 패딩
+                    backgroundColor: '#fff',  // 배경색 추가
+                    borderRadius: 2,  // 모서리 둥글게
+                    boxShadow: '0 0 10px rgba(0,0,0,0.1)',  // 그림자 효과
+                }}
+            >
+                <CurrentSongLyrics currentSong={currentSong} />
+            </Box>
+        </Box>
+    )}
+</Box>
+
       </Box>
       <Box sx={{ position: "sticky", top: 0, zIndex: 2 }}>
         <BottomBar
