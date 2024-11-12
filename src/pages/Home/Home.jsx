@@ -351,14 +351,13 @@ function Home() {
     const handlePlay = (song) => {
         setCurrentSong(song);
         setIsVideoVisible(true);
-        setIsPlaying(true);
-
+        setIsPlaying(false);  // 먼저 false로 설정
+        
         setTimeout(() => {
             if (videoRef.current) {
-                videoRef.current.onloadedmetadata = () => {
-                    setDuration(videoRef.current.duration);
-                };
-                videoRef.current.play();
+                videoRef.current.play().then(() => {
+                    setIsPlaying(true);  // 실제 재생이 시작되면 true로 변경
+                });
             }
         }, 100);
     };
