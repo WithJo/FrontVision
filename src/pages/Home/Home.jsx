@@ -44,6 +44,7 @@ function Home() {
     const [showLyrics, setShowLyrics] = useState(false); // 가사 표시 상태
     const [songData, setSongData] = useState([]);
     const videoRef = useRef(null);
+    const [volume, setVolume] = useState(100);
 
     useEffect(() => {
         const fetchSong = async () => {
@@ -59,17 +60,85 @@ function Home() {
         fetchSong();
     }, []);
 
+    useEffect(() => {
+        // 키보드 컨트롤
+        const handleKeyPress = (e) => {
+            if (currentSong && videoRef.current) {  // currentSong만 있으면 됨 (재생 여부 상관없이)
+                switch (e.code) {
+                    case 'Space':
+                        e.preventDefault();
+                        togglePlayPause();
+                        break;
+    
+                    case 'ArrowUp':    // 볼륨 증가
+                        e.preventDefault();
+                        const newVolumeUp = Math.min(1, videoRef.current.volume + 0.1);
+                        videoRef.current.volume = newVolumeUp;
+                        setVolume(newVolumeUp * 100);  // volume state 업데이트 추가
+                        break;
+                        
+                    case 'ArrowDown':  // 볼륨 감소
+                        e.preventDefault();
+                        const newVolumeDown = Math.max(0, videoRef.current.volume - 0.1);
+                        videoRef.current.volume = newVolumeDown;
+                        setVolume(newVolumeDown * 100);  // volume state 업데이트 추가
+                        break;
+                        
+                    case 'ArrowLeft':  // 5초 뒤로
+                        e.preventDefault();
+                        videoRef.current.currentTime = Math.max(0, videoRef.current.currentTime - 5);
+                        break;
+                        
+                    case 'ArrowRight': // 5초 앞으로
+                        e.preventDefault();
+                        videoRef.current.currentTime = Math.min(
+                            videoRef.current.duration, 
+                            videoRef.current.currentTime + 5
+                        );
+                        break;
+                }
+            }
+        };
+    
+        // 마우스 뒤로가기/앞으로가기 버튼 처리
+        const handleMouseNavigation = (e) => {
+            console.log('Mouse button:', e.button);  // 실제 값 확인
+
+            // 뒤로가기 버튼
+            if (e.button === 3) {
+                if (isVideoVisible) {
+                    e.preventDefault();
+                    setIsVideoVisible(false);
+                }
+            }
+            // 앞으로가기 버튼
+            else if (e.button === 4) {
+                if (!isVideoVisible && currentSong) {
+                    e.preventDefault();
+                    setIsVideoVisible(true);
+                }
+            }
+        };
+    
+        window.addEventListener('keydown', handleKeyPress);
+        window.addEventListener('mouseup', handleMouseNavigation);
+    
+        return () => {
+            window.removeEventListener('keydown', handleKeyPress);
+            window.removeEventListener('mouseup', handleMouseNavigation);
+        };
+    }, [currentSong, isPlaying, isVideoVisible]);
+
     const handlePlay = (song) => {
         setCurrentSong(song);
         setIsVideoVisible(true);
-        setIsPlaying(true);
-
+        setIsPlaying(false);  // 먼저 false로 설정
+        
         setTimeout(() => {
             if (videoRef.current) {
-                videoRef.current.onloadedmetadata = () => {
-                    setDuration(videoRef.current.duration);
-                };
-                videoRef.current.play();
+                videoRef.current.play().then(() => {
+                    setIsPlaying(true);  // 실제 재생이 시작되면 true로 변경
+                });
             }
         }, 100);
     };
@@ -261,6 +330,8 @@ function Home() {
                     isPlaying={isPlaying}
                     setIsPlaying={setIsPlaying}
                     togglePlayPause={togglePlayPause}
+                    volume={volume}           
+                    setVolume={setVolume}   
                 />
             </Box>
         </Box>
