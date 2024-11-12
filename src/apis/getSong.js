@@ -1,7 +1,7 @@
 import { baseURL } from "./api";
 
 export async function getSong() {
-    const url = new URL(`${baseURL}/point/log`);
+    const url = new URL(`${baseURL}/albums`);
 
     const response = await fetch(url, {
         method: "GET",
