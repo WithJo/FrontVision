@@ -8,34 +8,7 @@ import BottomBar from "../../components/BottomBar";
 import CurrentSongLyrics from "./CurrentSongLyrics";
 import SongList from "./SongList";
 import { getSong } from "../../apis/getSong";
-
-const popSongs = [
-    {
-        id: 1,
-        title: "Power", // 노래 제목 추가
-        artist: "G-Dragon",
-        lyric: "이 노래의 첫 번째 가사입니다.",
-        videoUrl: "/videos/sample1.mp4",
-        thumbnailUrl: "/thumbnails/sample1.jpg",
-    },
-    // 다른 노래 샘플
-    {
-        id: 2,
-        title: "BBI BBI",
-        artist: "IU",
-        lyric: "이 노래의 두 번째 가사입니다.",
-        videoUrl: "/videos/sample2.mp4",
-        thumbnailUrl: "/thumbnails/sample2.jpg",
-    },
-    {
-        id: 3,
-        title: "Armageddon",
-        lyric: "이 노래의 세 번째 가사입니다.",
-        artist: "Aespa",
-        videoUrl: "/videos/sample3.mp4",
-        thumbnailUrl: "/thumbnails/sample3.jpg",
-    },
-];
+import { popSongs } from "./popSongs";
 
 function Home() {
     const [currentSong, setCurrentSong] = useState(null);
@@ -164,7 +137,10 @@ function Home() {
             }}
         >
             <Box sx={{ position: "sticky", top: 0, zIndex: 2 }}>
-                <TopSearchBar />
+                <TopSearchBar 
+                        isVideoVisible={isVideoVisible}
+                        setIsVideoVisible={setIsVideoVisible}
+                />
             </Box>
             <Box
                 sx={{
@@ -174,7 +150,10 @@ function Home() {
                 }}
             >
                 <Box sx={{ position: "sticky", top: 0, zIndex: 1 }}>
-                    <SideBar />
+                    <SideBar 
+                            isVideoVisible={isVideoVisible}
+                            setIsVideoVisible={setIsVideoVisible}
+                            />
                 </Box>
 
                 {/* Content Area */}

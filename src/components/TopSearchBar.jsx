@@ -1,35 +1,49 @@
 import { AppBar, Toolbar, Typography, TextField, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-function TopSearchBar() {
-    let navigate = useNavigate();
+function TopSearchBar({ isVideoVisible, setIsVideoVisible }) {
+    const handleLogoClick = () => {
+        // 현재 비디오가 보이는 상태일 때만 토글
+        if (isVideoVisible) {
+            setIsVideoVisible(false);
+        }
+    };
+
     return (
         <AppBar position="static">
             <Toolbar>
-                <Box onClick={() => navigate("/")}>
+                <Box 
+                    onClick={handleLogoClick}
+                    sx={{ 
+                        cursor: 'pointer',
+                        '&:hover': {
+                            opacity: 0.8
+                        }
+                    }}
+                >
                     <Typography variant="h1">Signify</Typography>
                 </Box>
                 <TextField
                     placeholder="노래, 앨범, 아티스트 검색"
                     size="small"
                     sx={{
-                        backgroundColor: "white", // 배경색을 흰색으로 설정하여 가시성 향상
-                        borderRadius: 1, // 둥근 테두리
-                        marginLeft: "110px", // NavBar의 너비 + 여백 설정
+                        backgroundColor: "white",
+                        borderRadius: 1,
+                        marginLeft: "110px",
                         input: {
-                            color: "black", // 텍스트 색상을 검정으로 설정
+                            color: "black",
                         },
                         "& .MuiOutlinedInput-root": {
                             "& fieldset": {
-                                borderColor: "white", // 기본 테두리 색상
+                                borderColor: "white",
                                 borderWidth: "2px",
                             },
                             "&:hover fieldset": {
-                                borderColor: "lightgray", // 마우스 호버 시 테두리 색상
+                                borderColor: "lightgray",
                                 borderWidth: "2px",
                             },
                             "&.Mui-focused fieldset": {
-                                borderColor: "white", // 포커스 시 테두리 색상
+                                borderColor: "white",
                                 borderWidth: "2px",
                             },
                         },
