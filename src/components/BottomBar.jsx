@@ -18,23 +18,29 @@ function BottomBar({
 }) {
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
+    const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
         if (videoRef.current) {
             const handleLoadedMetadata = () => {
-                setDuration(videoRef.current.duration);
+                const videoDuration = videoRef.current.duration || 0;
+                setDuration(videoDuration);
+                setIsLoaded(true);
             };
+
             videoRef.current.addEventListener(
                 "loadedmetadata",
                 handleLoadedMetadata
             );
-            return () =>
+
+            return () => {
                 videoRef.current.removeEventListener(
                     "loadedmetadata",
                     handleLoadedMetadata
                 );
+            };
         }
-    }, [videoRef]);
+    }, [videoRef, currentSong]);
 
     useEffect(() => {
         const updateCurrentTime = () => {
@@ -113,6 +119,7 @@ function BottomBar({
                             "& .MuiSlider-track": { color: "#fff" },
                             "& .MuiSlider-rail": { color: "#ffffff80" },
                         }}
+                        disabled={!isLoaded}
                     />
                     <Typography variant="body2">
                         {Math.floor(currentTime / 60)}:
