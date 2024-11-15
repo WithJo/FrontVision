@@ -9,7 +9,7 @@
 - 개발 기간 : 24.11.03 ~ 24.11.16
 - 배포 URL : [**test-signify.vercel.app**](https://test-signify.vercel.app)
 
-## 🍱 Signify 소개
+## 🎧 Signify 소개
 
 ---
 
