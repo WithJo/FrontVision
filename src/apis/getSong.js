@@ -1,6 +1,7 @@
-import { baseURL } from "./api";
+//import { baseURL } from "./api";
 
 export async function getSong() {
+    const baseURL = import.meta.env.VITE_API_KEY;
     const url = new URL(`${baseURL}/albums`);
 
     const response = await fetch(url, {
