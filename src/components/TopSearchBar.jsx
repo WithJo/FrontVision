@@ -1,5 +1,4 @@
 import { AppBar, Toolbar, Typography, TextField, Box } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 
 function TopSearchBar({ isVideoVisible, setIsVideoVisible }) {
     const handleLogoClick = () => {
