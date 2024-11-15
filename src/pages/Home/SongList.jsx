@@ -99,7 +99,7 @@ function SongList({ songs, popsongs, onSongSelect }) {
                         left: 20,
                         top: '50%',
                         transform: 'translateY(-50%)',
-                        zIndex: 2,
+                        zIndex: 1,
                         backgroundColor: 'rgba(255, 255, 255, 0.8)',
                         '&:hover': {
                             backgroundColor: 'rgba(255, 255, 255, 0.9)',
@@ -193,7 +193,7 @@ function SongList({ songs, popsongs, onSongSelect }) {
                         right: 20,
                         top: '50%',
                         transform: 'translateY(-50%)',
-                        zIndex: 2,
+                        zIndex: 0,
                         backgroundColor: 'rgba(255, 255, 255, 0.8)',
                         '&:hover': {
                             backgroundColor: 'rgba(255, 255, 255, 0.9)',
